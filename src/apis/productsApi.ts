@@ -1,7 +1,9 @@
-// This is where our product api will be fetched.
-// Since each function is fetching soemthing, it should be async in nature
-
-import { Product, ProductCategory, Products, ProductsParams } from "@/types/product";
+import {
+  Product,
+  ProductCategory,
+  Products,
+  ProductsParams,
+} from "@/types/product";
 import {
   PRODUCTS_BY_CATEGORY_URL,
   PRODUCTS_CATEGORIES_URL,
@@ -9,10 +11,6 @@ import {
   PRODUCTS_TO_SKIP,
   PRODUCTS_URL,
 } from "@/data/constants";
-
-interface ApiError {
-  message: string;
-}
 
 export const productsApi = {
   async getAllProducts(params?: ProductsParams) {
@@ -60,5 +58,5 @@ export const productsApi = {
     }
 
     return response.json() as Promise<ProductCategory[]>;
-  }
+  },
 };

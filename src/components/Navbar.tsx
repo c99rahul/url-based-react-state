@@ -1,13 +1,8 @@
+import { NAV_LINKS, STORE_NAME } from "@/data/constants";
 import { Link, useLocation } from "react-router-dom";
 
 export function Navbar() {
   const location = useLocation();
-
-  const links = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
-  ];
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -16,11 +11,11 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <nav className="flex h-16 items-center justify-between">
           <Link to="/" className="text-xl font-semibold text-gray-900">
-            MyStore
+            {STORE_NAME}
           </Link>
 
           <div className="flex items-center gap-8">
-            {links.map(({ href, label }) => (
+            {NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 to={href}

@@ -11,3 +11,11 @@ export const SORT_OPTIONS = [
   { label: "Price (High to Low)", value: "price-desc" },
   { label: "Rating (High to Low)", value: "rating-desc" },
 ] as const;
+
+export const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
+export const STORE_NAME = "MyStore";
