@@ -20,10 +20,6 @@ export function useProducts(limit: number) {
   const fetchProducts = useCallback(
     async (page: number) => {
       try {
-        if (!products.length) {
-          throw new Error("No products found.");
-        }
-
         setLoading(true);
 
         const skip = (page - 1) * limit;
