@@ -20,7 +20,12 @@ export function useProducts(limit: number) {
   const fetchProducts = useCallback(
     async (page: number) => {
       try {
+        if (!products.length) {
+          throw new Error("No products found.");
+        }
+
         setLoading(true);
+
         const skip = (page - 1) * limit;
         const data = await productsApi.getAllProducts({
           limit,
@@ -29,11 +34,14 @@ export function useProducts(limit: number) {
           order,
           category,
         });
+
         setProducts(data.products);
         setTotal(data.total);
       } catch (err) {
         setError(
-          err instanceof Error ? err : new Error("Failed to fetch rpoducts")
+          err instanceof Error
+            ? err
+            : new Error("Failed to fetch products at the moment.")
         );
       } finally {
         setLoading(false);

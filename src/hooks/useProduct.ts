@@ -14,7 +14,7 @@ export function useProduct() {
   const fetchProduct = useCallback(async () => {
     try {
       if (!productId) {
-        throw new Error("Product Id is required");
+        throw new Error("No product found matching your criteria.");
       }
       setLoading(true);
       const data = await productsApi.getProductById(productId);
@@ -22,7 +22,9 @@ export function useProduct() {
       console.log(data);
     } catch (err) {
       setError(
-        err instanceof Error ? err : new Error("Failed to fetch rpoducts")
+        err instanceof Error
+          ? err
+          : new Error("Failed to fetch the product at the moment.")
       );
       setProduct(null);
     } finally {

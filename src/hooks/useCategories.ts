@@ -12,10 +12,9 @@ export function useCategories() {
       setLoading(true);
       const data = await productsApi.getAllCategories();
       setCategories(data);
-      console.log(data);
     } catch (err) {
       setError(
-        err instanceof Error ? err : new Error("Failed to fetch rpoducts")
+        err instanceof Error ? err : new Error("Failed to load categories...")
       );
       setCategories([]);
     } finally {
