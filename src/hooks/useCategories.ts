@@ -1,6 +1,6 @@
+import { useCallback, useEffect, useState } from "react";
 import { productsApi } from "@/apis/productsApi";
 import { ProductCategory } from "@/types/product";
-import { useCallback, useEffect, useState } from "react";
 
 export function useCategories() {
   const [categories, setCategories] = useState<ProductCategory[]>([]);

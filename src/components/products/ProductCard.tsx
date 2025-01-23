@@ -1,5 +1,5 @@
-import { Product } from "@/types/product";
 import { Link } from "react-router-dom";
+import { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;

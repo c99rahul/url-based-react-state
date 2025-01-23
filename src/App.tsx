@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import ProductPage from "./components/pages/ProductPage";
 import ProductsPage from "./components/pages/ProductsPage";
 import NotFoundPage from "./components/pages/NotFoundPage";
-import { Navbar } from "./components/Navbar";
+import { Navbar } from "./components/layout/Navbar";
 
 export default function App() {
   return (

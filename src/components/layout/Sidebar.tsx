@@ -1,12 +1,12 @@
+import { useSearchParams } from "react-router-dom";
 import { SORT_OPTIONS } from "@/data/constants";
 import { useCategories } from "@/hooks/useCategories";
-import { useSearchParams } from "react-router-dom";
 
 interface SidebarProps {
   className?: string;
 }
 
-export function Sidebar({ className }: SidebarProps) {
+export default function Sidebar({ className }: SidebarProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { categories, loading, error } = useCategories();
 
@@ -80,8 +80,8 @@ export function Sidebar({ className }: SidebarProps) {
               >
                 <option value="">All Categories</option>
                 {categories?.map((cat) => (
-                  <option key={cat.slug} value={cat.slug}>
-                    {cat.name}
+                  <option key={cat?.slug} value={cat?.slug}>
+                    {cat?.name}
                   </option>
                 ))}
               </select>

@@ -31,3 +31,18 @@ export interface ProductCategory {
   slug?: string;
   name?: string;
 }
+
+export type ProductSortFields =
+  | "price"
+  | "title"
+  | "rating"
+  | "createdAt"
+  | "updatedAt"
+  | "stock";
+
+export class APIError extends Error {
+  constructor(message: string, public statusCode?: number) {
+    super(message);
+    this.name = "APIError";
+  }
+}

@@ -1,11 +1,11 @@
-import { productsApi } from "@/apis/productsApi";
-import { Product } from "@/types/product";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { productsApi } from "@/apis/productsApi";
+import { Product } from "@/types/product";
 
 export function useProduct() {
   const [searchParams] = useSearchParams();
-  const [product, setProduct] = useState<Product | null>();
+  const [product, setProduct] = useState<Product | null>(null); // Fixed initial state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -13,18 +13,21 @@ export function useProduct() {
 
   const fetchProduct = useCallback(async () => {
     try {
-      if (!productId) {
-        throw new Error("No product found matching your criteria.");
+      if (!productId || isNaN(productId)) {
+        throw new Error("Invalid product ID provided");
       }
       setLoading(true);
+      setError(null);
+
       const data = await productsApi.getProductById(productId);
+      if (!data) {
+        throw new Error("Product not found");
+      }
+
       setProduct(data);
-      console.log(data);
     } catch (err) {
       setError(
-        err instanceof Error
-          ? err
-          : new Error("Failed to fetch the product at the moment.")
+        err instanceof Error ? err : new Error("Unable to load product details")
       );
       setProduct(null);
     } finally {
@@ -40,6 +43,5 @@ export function useProduct() {
     product,
     loading,
     error,
-    refetch: fetchProduct,
   };
 }

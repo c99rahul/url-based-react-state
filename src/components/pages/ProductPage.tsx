@@ -1,9 +1,8 @@
 import { useProduct } from "@/hooks/useProduct";
-import { Product } from "@/types/product";
-import ErrorMessage from "../ErrorMessage";
-import LoadingAnimation from "../LoadingAnimation";
-import ProductGallery from "../ProductGallery";
-import ProductInfo from "../ProductInfo";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import LoadingAnimation from "@/components/ui/LoadingAnimation";
+import ProductGallery from "@/components/products/ProductGallery";
+import ProductInfo from "@/components/products/ProductInfo";
 
 export default function ProductPage() {
   const { product, loading, error } = useProduct();
@@ -12,20 +11,17 @@ export default function ProductPage() {
   if (loading) return <LoadingAnimation />;
   if (!product) return null;
 
-  // Since we've checked for null/undefined, we can safely assert the type
-  const productData = product as Product;
-
   return (
     <main className="min-h-screen bg-gray-100">
       <div className="container mx-auto px-4 py-8">
-        <div className="rounded-lg border border-gray-200 bg-white">
-          <div className="grid gap-8 p-6 lg:grid-cols-2">
+        <div className="">
+          <div className="grid gap-8 lg:grid-cols-2">
             <ProductGallery
-              thumbnail={productData.thumbnail}
-              images={productData.images}
-              title={productData.title}
+              thumbnail={product.thumbnail}
+              images={product.images}
+              title={product.title}
             />
-            <ProductInfo product={productData} />
+            <ProductInfo product={product} />
           </div>
         </div>
       </div>

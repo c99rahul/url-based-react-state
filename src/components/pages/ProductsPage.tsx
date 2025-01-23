@@ -1,10 +1,10 @@
-import { PRODUCTS_PER_PAGE } from "@/data/constants";
 import { useProducts } from "@/hooks/useProducts";
-import ErrorMessage from "../ErrorMessage";
-import LoadingAnimation from "../LoadingAnimation";
-import ProductGrid from "../ProductGrid";
-import Pagination from "../ProductPagination";
-import { Sidebar } from "../Sidebar";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import LoadingAnimation from "@/components/ui/LoadingAnimation";
+import ProductGrid from "@/components/products/ProductGrid";
+import Pagination from "@/components/products/ProductPagination";
+import Sidebar from "@/components/layout/Sidebar";
+import { PRODUCTS_PER_PAGE } from "@/data/constants";
 
 export default function ProductsPage() {
   const {

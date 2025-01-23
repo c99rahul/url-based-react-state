@@ -1,5 +1,5 @@
-import { NAV_LINKS, STORE_NAME } from "@/data/constants";
 import { Link, useLocation } from "react-router-dom";
+import { NAV_LINKS, STORE_NAME } from "@/data/constants";
 
 export function Navbar() {
   const location = useLocation();

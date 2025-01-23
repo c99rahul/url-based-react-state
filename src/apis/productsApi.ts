@@ -1,4 +1,5 @@
 import {
+  APIError,
   Product,
   ProductCategory,
   Products,
@@ -12,13 +13,29 @@ import {
   PRODUCTS_URL,
 } from "@/data/constants";
 
+async function handleResponse<T>(response: Response): Promise<T> {
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({
+      message: "Unknown error occurred",
+    }));
+    throw new APIError(
+      errorData.message || `HTTP error ${response.status}`,
+      response.status
+    );
+  }
+
+  try {
+    return (await response.json()) as T;
+  } catch (error) {
+    throw new APIError("Invalid JSON response from server");
+  }
+}
+
 export const productsApi = {
   async getAllProducts(params?: ProductsParams) {
     const url = params?.category
       ? `${PRODUCTS_BY_CATEGORY_URL}/${params.category}`
       : PRODUCTS_URL;
-
-    console.log(url);
 
     const queryParams = new URLSearchParams({
       limit: params?.limit?.toString() || PRODUCTS_PER_PAGE.toString(),
@@ -33,30 +50,15 @@ export const productsApi = {
     }
 
     const response = await fetch(`${url}?${queryParams}`);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch products");
-    }
-
-    return response.json() as Promise<Products>;
+    return handleResponse<Products>(response);
   },
   async getProductById(id: number) {
     const response = await fetch(`${PRODUCTS_URL}/${id}`);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch product");
-    }
-
-    return response.json() as Promise<Product>;
+    return handleResponse<Product>(response);
   },
 
   async getAllCategories() {
     const response = await fetch(PRODUCTS_CATEGORIES_URL);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch cats");
-    }
-
-    return response.json() as Promise<ProductCategory[]>;
+    return handleResponse<ProductCategory[]>(response);
   },
 };
