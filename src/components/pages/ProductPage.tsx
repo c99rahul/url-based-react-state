@@ -1,8 +1,8 @@
 import { useProduct } from "@/hooks/useProduct";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import LoadingAnimation from "@/components/ui/LoadingAnimation";
-import ProductGallery from "@/components/products/ProductGallery";
-import ProductInfo from "@/components/products/ProductInfo";
+import ProductGallery from "@/components/product/ProductGallery";
+import ProductInfo from "@/components/product/ProductInfo";
 
 export default function ProductPage() {
   const { product, loading, error } = useProduct();

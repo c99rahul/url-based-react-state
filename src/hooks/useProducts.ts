@@ -22,7 +22,7 @@ export function useProducts(limit: number) {
     try {
       setLoading(true);
       const skip = (currentPage - 1) * limit;
-      const data = await productsApi.getAllProducts({
+      const data = await productsApi.getProducts({
         limit,
         skip,
         sortBy: sortBy || null,

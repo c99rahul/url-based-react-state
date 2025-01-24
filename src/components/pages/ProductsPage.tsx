@@ -1,8 +1,8 @@
 import { useProducts } from "@/hooks/useProducts";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import LoadingAnimation from "@/components/ui/LoadingAnimation";
-import ProductGrid from "@/components/products/ProductGrid";
-import Pagination from "@/components/products/ProductPagination";
+import ProductGrid from "@/components/product/ProductGrid";
+import Pagination from "@/components/product/ProductPagination";
 import Sidebar from "@/components/layout/Sidebar";
 import { PRODUCTS_PER_PAGE } from "@/data/constants";
 

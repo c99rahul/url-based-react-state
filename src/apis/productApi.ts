@@ -12,7 +12,7 @@ import {
 } from "@/data/constants";
 
 export const productsApi = {
-  async getAllProducts(params?: ProductsParams) {
+  async getProducts(params?: ProductsParams) {
     const queryParams = new URLSearchParams({
       limit: (params?.limit ?? PRODUCTS_PER_PAGE).toString(),
       skip: (params?.skip ?? PRODUCTS_TO_SKIP).toString(),

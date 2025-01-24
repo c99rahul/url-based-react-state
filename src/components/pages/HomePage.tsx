@@ -17,7 +17,7 @@ export default function HomePage() {
             <Link
               to="https://github.com/c99rahul/url-based-react-state"
               target="_blank"
-              className="rounded-lg border border-gray-300 bg-gray-300 px-8 py-3 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-200 hover:border-gray-200"
+              className="rounded-lg border border-gray-300 bg-white px-8 py-3 text-sm font-medium text-gray-900 transition-colors hover:border-gray-400"
             >
               Fork this on GitHub
             </Link>
