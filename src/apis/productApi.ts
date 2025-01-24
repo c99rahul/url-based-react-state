@@ -1,5 +1,10 @@
 // productsApi.ts
-import { Product, Products, ProductsParams } from "@/types/product";
+import {
+  Product,
+  ProductCategory,
+  Products,
+  ProductsParams,
+} from "@/types/product";
 import {
   PRODUCTS_URL,
   PRODUCTS_PER_PAGE,
@@ -51,6 +56,6 @@ export const productsApi = {
       );
     }
 
-    return response.json() as Promise<string[]>;
+    return response.json() as Promise<ProductCategory[]>;
   },
 };

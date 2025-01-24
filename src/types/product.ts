@@ -27,7 +27,10 @@ export interface ProductsParams {
   category?: string | null;
 }
 
-export type ProductCategory = string;
+export type ProductCategory = {
+  name?: string;
+  slug?: string;
+};
 
 export type ProductSortFields =
   | "price"
