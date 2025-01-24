@@ -1,47 +1,38 @@
-import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { productsApi } from "@/apis/productsApi";
+import { productsApi } from "@/apis/productApi";
 import { Product } from "@/types/product";
+import { useCallback, useEffect, useState } from "react";
+
+import { useParams } from "react-router-dom";
 
 export function useProduct() {
-  const [searchParams] = useSearchParams();
-  const [product, setProduct] = useState<Product | null>(null); // Fixed initial state
+  const { id } = useParams();
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const productId = Number(searchParams.get("id"));
-
   const fetchProduct = useCallback(async () => {
     try {
+      const productId = Number(id);
+
       if (!productId || isNaN(productId)) {
-        throw new Error("Invalid product ID provided");
+        throw new Error("Invalid product ID");
       }
+
       setLoading(true);
       setError(null);
-
       const data = await productsApi.getProductById(productId);
-      if (!data) {
-        throw new Error("Product not found");
-      }
-
       setProduct(data);
     } catch (err) {
-      setError(
-        err instanceof Error ? err : new Error("Unable to load product details")
-      );
+      setError(new Error(`Failed to load product: ${err}`));
       setProduct(null);
     } finally {
       setLoading(false);
     }
-  }, [productId]);
+  }, [id]);
 
   useEffect(() => {
     fetchProduct();
   }, [fetchProduct]);
 
-  return {
-    product,
-    loading,
-    error,
-  };
+  return { product, loading, error };
 }

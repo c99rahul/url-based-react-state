@@ -27,10 +27,7 @@ export interface ProductsParams {
   category?: string | null;
 }
 
-export interface ProductCategory {
-  slug?: string;
-  name?: string;
-}
+export type ProductCategory = string;
 
 export type ProductSortFields =
   | "price"
@@ -39,10 +36,3 @@ export type ProductSortFields =
   | "createdAt"
   | "updatedAt"
   | "stock";
-
-export class APIError extends Error {
-  constructor(message: string, public statusCode?: number) {
-    super(message);
-    this.name = "APIError";
-  }
-}

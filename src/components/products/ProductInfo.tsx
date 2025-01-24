@@ -1,17 +1,8 @@
 import { Product } from "@/types/product";
+import { getOriginalPrice } from "@/utils/calculatePrice";
 
 interface ProductInfoProps {
-  product: Pick<
-    Product,
-    | "brand"
-    | "title"
-    | "rating"
-    | "stock"
-    | "price"
-    | "discountPercentage"
-    | "description"
-    | "category"
-  >;
+  product: Product;
 }
 
 export default function ProductInfo({ product }: ProductInfoProps) {
@@ -46,13 +37,10 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             {product.discountPercentage > 0 && (
               <>
                 <p className="text-lg text-gray-500 line-through">
-                  $
-                  {Math.round(
-                    product.price / (1 - product.discountPercentage / 100)
-                  )}
+                  ${getOriginalPrice(product.price, product.discountPercentage)}
                 </p>
                 <span className="rounded-full bg-red-500 px-2 py-1 text-xs font-medium text-white">
-                  -{Math.round(product.discountPercentage)}% OFF
+                  {Math.round(product.discountPercentage)}% OFF
                 </span>
               </>
             )}

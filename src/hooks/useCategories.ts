@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { productsApi } from "@/apis/productsApi";
+import { productsApi } from "@/apis/productApi";
 import { ProductCategory } from "@/types/product";
 
 export function useCategories() {
@@ -13,9 +13,7 @@ export function useCategories() {
       const data = await productsApi.getAllCategories();
       setCategories(data);
     } catch (err) {
-      setError(
-        err instanceof Error ? err : new Error("Failed to load categories...")
-      );
+      setError(new Error(`Failed to load categories: ${err}`));
       setCategories([]);
     } finally {
       setLoading(false);
