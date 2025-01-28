@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { SORT_OPTIONS } from "@/data/constants";
+import { SORT_OPTIONS } from "@/config/sorting";
 import { useCategories } from "@/hooks/useCategories";
 
 interface SidebarProps {
@@ -8,7 +8,7 @@ interface SidebarProps {
 
 export default function Sidebar({ className }: SidebarProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { categories, loading, error } = useCategories();
+  const { data: categories, isLoading, error } = useCategories();
 
   if (error) {
     return (
@@ -76,7 +76,7 @@ export default function Sidebar({ className }: SidebarProps) {
                 value={category || ""}
                 onChange={handleCategoryChange}
                 className={selectClassName}
-                disabled={loading}
+                disabled={isLoading}
               >
                 <option value="">All Categories</option>
                 {categories?.map((cat) => (

@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "...",
+      "description": "...",
+      "category": "...",
+      "price": "...",
+      "discountPercentage": "...",
+      "rating": "...",
+      "stock": "...",
+      "tags": ["...", "..."],
+      "brand": "...",
+      "sku": "...",
+      "availabilityStatus": "...",
+      "reviews": ["..."],
+      "returnPolicy": "...",
+      "minimumOrderQuantity": "...",
+      "images": ["..."],
+      "thumbnail": "..."
+    },
+    "..."
+  ],
+  "total": "...",
+  "count": "...",
+  "limit": "...",
+  "offset": "..."
+}

@@ -4,12 +4,12 @@ import LoadingAnimation from "@/components/ui/LoadingAnimation";
 import ProductGrid from "@/components/product/ProductGrid";
 import Pagination from "@/components/product/ProductPagination";
 import Sidebar from "@/components/layout/Sidebar";
-import { PRODUCTS_PER_PAGE } from "@/data/constants";
+import { PAGINATION_CONFIG } from "@/config/pagination";
 
 export default function ProductsPage() {
   const {
     products,
-    loading,
+    isLoading,
     error,
     currentPage,
     totalPages,
@@ -17,7 +17,7 @@ export default function ProductsPage() {
     goToPrevious,
     hasNext,
     hasPrevious,
-  } = useProducts(PRODUCTS_PER_PAGE);
+  } = useProducts(PAGINATION_CONFIG.ITEMS_PER_PAGE);
 
   if (error) {
     return <ErrorMessage message={error.message} />;
@@ -30,7 +30,7 @@ export default function ProductsPage() {
           <Sidebar />
 
           <section className="flex-1 space-y-8">
-            {loading ? (
+            {isLoading ? (
               <LoadingAnimation />
             ) : (
               <>
@@ -42,7 +42,7 @@ export default function ProductsPage() {
                   onPrevious={goToPrevious}
                   hasNext={hasNext}
                   hasPrevious={hasPrevious}
-                  isLoading={loading}
+                  isLoading={isLoading}
                 />
               </>
             )}

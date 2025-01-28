@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { NAV_LINKS, STORE_NAME } from "@/data/constants";
+import { NAVIGATION_CONFIG } from "@/config/navigation";
 
 export function Navbar() {
   const location = useLocation();
@@ -11,11 +11,11 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <nav className="flex h-16 items-center justify-between">
           <Link to="/" className="text-xl font-semibold text-gray-900">
-            {STORE_NAME}
+            {NAVIGATION_CONFIG.STORE_NAME}
           </Link>
 
           <div className="flex items-center gap-8">
-            {NAV_LINKS.map(({ href, label }) => (
+            {NAVIGATION_CONFIG.LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 to={href}

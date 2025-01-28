@@ -1,46 +1,32 @@
 // useProducts.ts
-import { useCallback, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { productsApi } from "@/apis/productApi";
-import { Product } from "@/types/product";
+import { useCallback } from "react";
 
 export function useProducts(limit: number) {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentPage = Number(searchParams.get("page")) || 1;
-  const totalPages = Math.ceil(total / limit);
-
   const sortBy = searchParams.get("sortBy");
   const order = searchParams.get("order") as "asc" | "desc" | null;
   const category = searchParams.get("category");
 
-  const fetchProducts = useCallback(async () => {
-    try {
-      setLoading(true);
-      const skip = (currentPage - 1) * limit;
-      const data = await productsApi.getProducts({
+  const skip = (currentPage - 1) * limit;
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products", { limit, skip, sortBy, order, category }],
+    queryFn: () =>
+      productsApi.getProducts({
         limit,
         skip,
         sortBy: sortBy || null,
         order,
         category,
-      });
+      }),
+  });
 
-      setProducts(data.products);
-      setTotal(data.total);
-      setError(null);
-    } catch (err) {
-      setProducts([]);
-      setTotal(0);
-      setError(new Error(`Failed to load products: ${err}`));
-    } finally {
-      setLoading(false);
-    }
-  }, [limit, currentPage, sortBy, order, category]);
+  const totalPages = Math.ceil((data?.total || 0) / limit);
 
   const goToPage = useCallback(
     (page: number) => {
@@ -55,13 +41,10 @@ export function useProducts(limit: number) {
     [totalPages, setSearchParams]
   );
 
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
-
   return {
-    products,
-    loading,
+    products: data?.products || [],
+    total: data?.total || 0,
+    isLoading,
     error,
     currentPage,
     totalPages,

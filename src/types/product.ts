@@ -1,4 +1,4 @@
-export interface Product {
+export type Product = {
   id: number;
   title: string;
   description: string;
@@ -10,22 +10,22 @@ export interface Product {
   category: string;
   thumbnail: string;
   images: string[];
-}
+};
 
-export interface Products {
+export type ProductsResponse = {
   products: Product[];
   total: number;
   skip: number;
   limit: number;
-}
+};
 
-export interface ProductsParams {
+export type ProductsQueryParams = {
   limit?: number;
   skip?: number;
   sortBy?: string | null;
   order?: "asc" | "desc" | null;
   category?: string | null;
-}
+};
 
 export type ProductCategory = {
   name?: string;

@@ -1,31 +1,41 @@
 // productsApi.ts
+import { PAGINATION_CONFIG } from "@/config/pagination";
 import {
   Product,
   ProductCategory,
-  Products,
-  ProductsParams,
+  ProductsQueryParams,
+  ProductsResponse,
 } from "@/types/product";
 import {
-  PRODUCTS_URL,
-  PRODUCTS_PER_PAGE,
-  PRODUCTS_TO_SKIP,
-} from "@/data/constants";
+  getCategoriesUrl,
+  getCategoryProductsUrl,
+  getProductsUrl,
+  getProductUrl,
+} from "@/utils/getApiUrls";
 
 export const productsApi = {
-  async getProducts(params?: ProductsParams) {
-    const queryParams = new URLSearchParams({
-      limit: (params?.limit ?? PRODUCTS_PER_PAGE).toString(),
-      skip: (params?.skip ?? PRODUCTS_TO_SKIP).toString(),
-    });
+  async getProducts(params?: ProductsQueryParams) {
+    const queryParams = new URLSearchParams();
 
+    // Add pagination params
+    queryParams.append(
+      "limit",
+      (params?.limit ?? PAGINATION_CONFIG.ITEMS_PER_PAGE).toString()
+    );
+    queryParams.append(
+      "skip",
+      (params?.skip ?? PAGINATION_CONFIG.INITIAL_ITEMS_TO_SKIP).toString()
+    );
+
+    // Add optional sort params
     if (params?.sortBy && params?.order) {
       queryParams.append("sortBy", params.sortBy);
       queryParams.append("order", params.order);
     }
 
     const url = params?.category
-      ? `${PRODUCTS_URL}/category/${params.category}`
-      : PRODUCTS_URL;
+      ? getCategoryProductsUrl(params.category)
+      : getProductsUrl();
 
     const response = await fetch(`${url}?${queryParams}`);
     if (!response.ok) {
@@ -34,11 +44,11 @@ export const productsApi = {
       );
     }
 
-    return response.json() as Promise<Products>;
+    return response.json() as Promise<ProductsResponse>;
   },
 
   async getProductById(id: number) {
-    const response = await fetch(`${PRODUCTS_URL}/${id}`);
+    const response = await fetch(getProductUrl(id));
     if (!response.ok) {
       throw new Error(
         `API Error: ${response.status}; failed to load the product.`
@@ -49,7 +59,7 @@ export const productsApi = {
   },
 
   async getAllCategories() {
-    const response = await fetch(`${PRODUCTS_URL}/categories`);
+    const response = await fetch(getCategoriesUrl());
     if (!response.ok) {
       throw new Error(
         `API Error: ${response.status}; failed to load categories.`
