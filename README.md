@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# URL-based State Management in React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple app demonstrating how to control state using the URL in React, primarily leveraging the `useSearchParams` hook. See a quick working demo of this app in the video below:
 
-Currently, two official plugins are available:
+[![Watch the video](https://github.com/user-attachments/assets/5edd188b-40b0-44bf-ad12-4c36049f7e1f)](https://github.com/user-attachments/assets/1d15be0e-1684-44fd-b1cb-86a1bf17c0c4)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Follow this tutorial](https://blog.logrocket.com/advanced-react-state-management-using-url-parameters/) to understand the code and techniques utilized in this app.
 
-## Expanding the ESLint configuration
+## How It Works
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This project utilizes **URL search parameters** to manage state, allowing users to:
 
-- Configure the top-level `parserOptions` property like this:
+- Retain state across page reloads
+- Share URLs with prefilled states
+- Enable bookmarking of specific states
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Tech Stack 
+
+- **React** – For building the UI
+- **TypeScript** – To ensure type safety
+- **Tailwind CSS (v3.417)** – Utility-first styling framework
+- **TanStack React Query** – For data fetching and state synchronization
+- **React Router DOM** - For managing app routes efficiently
+- **Vite** – For fast development tooling
+- **DummyJSON API** – For providing test data
+
+## Prerequisites
+
+To follow along, you should have:
+
+- A working knowledge of **React** with **TypeScript**
+- Familiarity with **React Router DOM** for handling URL-based state
+- Basic understanding of **Tailwind CSS** (optional, if you're interested in UI styling)
+
+## Installation & Setup
+
+Clone the repository:
+
+```sh
+git clone https://github.com/c99rahul/url-based-react-state.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Navigate to the project directory:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+cd url-based-react-state
 ```
+
+Install dependencies using PNPM:
+
+```sh
+pnpm i
+```
+
+Run the development server:
+
+```sh
+pnpm dev --open
+```
+
+## License
+
+This project is open-source and available under the **MIT License**.
+
